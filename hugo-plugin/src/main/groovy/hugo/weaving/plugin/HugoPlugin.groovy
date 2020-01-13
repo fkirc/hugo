@@ -28,10 +28,10 @@ class HugoPlugin implements Plugin<Project> {
     variants = project.android.applicationVariants
 
     project.dependencies {
-      debugImplementation 'com.jakewharton.hugo:hugo-runtime:1.2.1'
+      debugImplementation 'com.github.fangzhzh.hugo:hugo-runtime:1.2.2'
       // TODO this should come transitively
       debugImplementation 'org.aspectj:aspectjrt:1.8.6'
-      implementation 'com.jakewharton.hugo:hugo-annotations:1.2.2'
+      implementation 'com.github.fangzhzh.hugo:hugo-annotations:1.2.2'
     }
 
     project.extensions.create('hugo', HugoExtension)
