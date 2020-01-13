@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'hugo'
 
 buildscript {
   dependencies {
@@ -9,21 +8,34 @@ buildscript {
         url 'https://maven.google.com/'
         name 'Google'
       }
+      maven { url "https://jitpack.io" }
       maven {
         url "https://plugins.gradle.org/m2/"
+      }
+      maven {
+        url  uri("../")
+      }
+      maven {
+        url  uri("../hugo-plugin/build/libs")
       }
     }
 
     classpath 'com.android.tools.build:gradle:3.5.3'
-    classpath 'com.jakewharton.hugo:hugo-plugin:1.2.1'
+//    classpath 'com.github.fangzhzh.hugo:hugo-plugin:1.2.2'
+//    classpath 'com.jakewharton.hugo:hugo-plugin:1.2.2-SNAPSHOT'
+    classpath 'a:hugo-plugin:1.2.2'
+
   }
 }
+apply plugin: 'hugo'
 
 
 dependencies {
   repositories {
     mavenCentral()
-
+    maven {
+      url  uri("../hugo-plugin/build/libs")
+    }
     // NOTE: This is only needed when developing the plugin!
     mavenLocal()
   }
@@ -43,4 +55,7 @@ android {
       applicationIdSuffix '.dev'
     }
   }
+}
+dependencies {
+  implementation fileTree(dir: 'libs', include: ['*.jar', "*.aar"])
 }

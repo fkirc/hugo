@@ -5,29 +5,33 @@ import org.aspectj.bridge.MessageHandler
 import org.aspectj.tools.ajc.Main
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.Task
+import org.gradle.api.tasks.TaskProvider
 import org.gradle.api.tasks.compile.JavaCompile
 
 class HugoPlugin implements Plugin<Project> {
   @Override void apply(Project project) {
-    def hasApp = project.plugins.withType(AppPlugin)
-    def hasLib = project.plugins.withType(LibraryPlugin)
-    if (!hasApp && !hasLib) {
-      throw new IllegalStateException("'android' or 'android-library' plugin required.")
-    }
+//    def hasApp = project.plugins.withType(AppPlugin)
+    print(project.plugins)
+//    def hasLib = project.plugins.withType(LibraryPlugin)
+//    if (!hasApp && !hasLib) {
+//      throw new IllegalStateException("'android' or 'android-library' plugin required.")
+//    }
 
     final def log = project.logger
     final def variants
-    if (hasApp) {
-      variants = project.android.applicationVariants
-    } else {
-      variants = project.android.libraryVariants
-    }
+//    if (hasApp) {
+//      variants = project.android.applicationVariants
+//    } else {
+//      variants = project.android.libraryVariants
+//    }
+    variants = project.android.applicationVariants
 
     project.dependencies {
-      debugCompile 'com.jakewharton.hugo:hugo-runtime:1.2.2-SNAPSHOT'
+      debugImplementation 'com.jakewharton.hugo:hugo-runtime:1.2.1'
       // TODO this should come transitively
-      debugCompile 'org.aspectj:aspectjrt:1.8.6'
-      implementation 'com.jakewharton.hugo:hugo-annotations:1.2.2-SNAPSHOT'
+      debugImplementation 'org.aspectj:aspectjrt:1.8.6'
+      implementation 'com.jakewharton.hugo:hugo-annotations:1.2.2'
     }
 
     project.extensions.create('hugo', HugoExtension)
@@ -41,7 +45,13 @@ class HugoPlugin implements Plugin<Project> {
         return;
       }
 
-      JavaCompile javaCompile = variant.getJavaCompileProvider()
+      Task javaCompile
+      if (variant.hasProperty('javaCompileProvider')) {
+        // Android 3.3.0+
+        javaCompile = variant.javaCompileProvider.get()
+      } else {
+        javaCompile = variant.javaCompile
+      }
       javaCompile.doLast {
         String[] args = [
             "-showWeaveInfo",
