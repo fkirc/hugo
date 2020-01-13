@@ -6,8 +6,6 @@ import org.aspectj.tools.ajc.Main
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Task
-import org.gradle.api.tasks.TaskProvider
-import org.gradle.api.tasks.compile.JavaCompile
 
 class HugoPlugin implements Plugin<Project> {
   @Override void apply(Project project) {
@@ -28,10 +26,10 @@ class HugoPlugin implements Plugin<Project> {
     variants = project.android.applicationVariants
 
     project.dependencies {
-      debugImplementation 'com.github.fangzhzh.hugo:hugo-runtime:1.2.2'
+      debugImplementation 'com.github.fangzhzh.hugo:hugo-runtime:1.2.3'
       // TODO this should come transitively
       debugImplementation 'org.aspectj:aspectjrt:1.8.6'
-      implementation 'com.github.fangzhzh.hugo:hugo-annotations:1.2.2'
+      implementation 'com.github.fangzhzh.hugo:hugo-annotations:1.2.3'
     }
 
     project.extensions.create('hugo', HugoExtension)
