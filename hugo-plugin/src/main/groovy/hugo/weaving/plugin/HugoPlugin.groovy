@@ -26,7 +26,7 @@ class HugoPlugin implements Plugin<Project> {
     variants = project.android.applicationVariants
 
     project.dependencies {
-      debugImplementation 'com.github.fangzhzh.hugo:hugo-runtime:1.2.3'
+      debugImplementation 'com.github.fangzhzh.hugo:hugo-runtime:1.2.4'
       // TODO this should come transitively
       debugImplementation 'org.aspectj:aspectjrt:1.8.6'
       implementation 'com.github.fangzhzh.hugo:hugo-annotations:1.2.4'
