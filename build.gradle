@@ -39,21 +39,3 @@ ext {
     compileSdkVersion = 29
     buildToolsVersion = '29.0.2'
 }
-
-task cleanExample(type: Exec) {
-    executable = '../gradlew'
-    workingDir = project.file('hugo-example')
-    args = ['clean']
-}
-
-task assembleExample(type: Exec) {
-    executable = '../gradlew'
-    workingDir = project.file('hugo-example')
-    args = ['assemble']
-}
-
-task installExample(type: Exec) {
-    executable = '../gradlew'
-    workingDir = project.file('hugo-example')
-    args = ['installDebug']
-}

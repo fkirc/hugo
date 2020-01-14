@@ -1,23 +1,17 @@
 apply plugin: 'com.android.application'
 
 buildscript {
-  dependencies {
-    repositories {
-      jcenter()
-      maven {
-        url 'https://maven.google.com/'
-        name 'Google'
-      }
-      maven { url "https://jitpack.io" }
-      maven {
-        url "https://plugins.gradle.org/m2/"
-      }
-      mavenLocal()
+  repositories {
+    maven { url "https://jitpack.io" }
+    maven {
+      url "https://plugins.gradle.org/m2/"
     }
-    classpath 'com.github.fangzhzh.hugo:hugo-plugin:1.2.3'
+    mavenLocal()
+  }
+  dependencies {
+    classpath "com.github.fangzhzh.hugo:hugo-plugin:${VERSION_NAME}"
   }
 }
-
 
 dependencies {
   repositories {
@@ -42,7 +36,3 @@ android {
   }
 }
 apply plugin: 'com.jakewharton.hugo'
-
-dependencies {
-  implementation fileTree(dir: 'libs', include: ['*.jar', "*.aar"])
-}

@@ -31,11 +31,14 @@ Add it to your project today!
 ```groovy
 buildscript {
   repositories {
-    mavenCentral()
+    maven { url "https://jitpack.io" }
+        maven {
+          url "https://plugins.gradle.org/m2/"
+        }
   }
 
   dependencies {
-    classpath 'com.jakewharton.hugo:hugo-plugin:1.2.1'
+    classpath "com.github.fangzhzh.hugo:hugo-plugin:2.0.0"
   }
 }
 

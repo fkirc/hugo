@@ -8,7 +8,7 @@ import org.gradle.api.Project
 import org.gradle.api.Task
 
 class HugoPlugin implements Plugin<Project> {
-  def VERSION_NAME = "1.2.6"
+  def VERSION_NAME = "2.0.0"
   @Override void apply(Project project) {
     def hasApp = project.plugins.findPlugin("com.android.application")
 
