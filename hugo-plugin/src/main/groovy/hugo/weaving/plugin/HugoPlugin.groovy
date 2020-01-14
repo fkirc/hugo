@@ -1,18 +1,18 @@
 package hugo.weaving.plugin
 
-import com.android.build.gradle.AppPlugin
-import com.android.build.gradle.LibraryPlugin
 import org.aspectj.bridge.IMessage
 import org.aspectj.bridge.MessageHandler
 import org.aspectj.tools.ajc.Main
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.tasks.compile.JavaCompile
+import org.gradle.api.Task
 
 class HugoPlugin implements Plugin<Project> {
+  def VERSION_NAME = "2.0.0"
   @Override void apply(Project project) {
-    def hasApp = project.plugins.withType(AppPlugin)
-    def hasLib = project.plugins.withType(LibraryPlugin)
+    def hasApp = project.plugins.findPlugin("com.android.application")
+
+    def hasLib = project.plugins.findPlugin("com.android.library")
     if (!hasApp && !hasLib) {
       throw new IllegalStateException("'android' or 'android-library' plugin required.")
     }
@@ -26,10 +26,10 @@ class HugoPlugin implements Plugin<Project> {
     }
 
     project.dependencies {
-      debugCompile 'com.jakewharton.hugo:hugo-runtime:1.2.2-SNAPSHOT'
+      debugImplementation "com.github.fangzhzh.hugo:hugo-runtime:${VERSION_NAME}"
       // TODO this should come transitively
-      debugCompile 'org.aspectj:aspectjrt:1.8.6'
-      compile 'com.jakewharton.hugo:hugo-annotations:1.2.2-SNAPSHOT'
+      debugImplementation 'org.aspectj:aspectjrt:1.9.1'
+      implementation "com.github.fangzhzh.hugo:hugo-annotations:${VERSION_NAME}"
     }
 
     project.extensions.create('hugo', HugoExtension)
@@ -43,7 +43,13 @@ class HugoPlugin implements Plugin<Project> {
         return;
       }
 
-      JavaCompile javaCompile = variant.javaCompile
+      Task javaCompile
+      if (variant.hasProperty('javaCompileProvider')) {
+        // Android 3.3.0+
+        javaCompile = variant.javaCompileProvider.get()
+      } else {
+        javaCompile = variant.javaCompile
+      }
       javaCompile.doLast {
         String[] args = [
             "-showWeaveInfo",
