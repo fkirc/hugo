@@ -12,15 +12,11 @@ buildscript {
       maven {
         url "https://plugins.gradle.org/m2/"
       }
+      mavenLocal()
     }
-
-    classpath 'com.android.tools.build:gradle:3.5.3'
-    classpath 'com.github.fangzhzh.hugo:hugo-plugin:1.2.2'
-//    classpath 'com.jakewharton.hugo:hugo-plugin:1.2.2-SNAPSHOT'
-
+    classpath 'com.github.fangzhzh.hugo:hugo-plugin:1.2.3'
   }
 }
-apply plugin: 'hugo'
 
 
 dependencies {
@@ -39,13 +35,14 @@ android {
     sourceCompatibility JavaVersion.VERSION_1_8
     targetCompatibility JavaVersion.VERSION_1_8
   }
-
   buildTypes {
     dev {
       applicationIdSuffix '.dev'
     }
   }
 }
+apply plugin: 'com.jakewharton.hugo'
+
 dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar', "*.aar"])
 }

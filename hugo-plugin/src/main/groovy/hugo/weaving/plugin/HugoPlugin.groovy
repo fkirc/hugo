@@ -8,28 +8,28 @@ import org.gradle.api.Project
 import org.gradle.api.Task
 
 class HugoPlugin implements Plugin<Project> {
+  def VERSION_NAME = "1.2.6"
   @Override void apply(Project project) {
-//    def hasApp = project.plugins.withType(AppPlugin)
-    print(project.plugins)
-//    def hasLib = project.plugins.withType(LibraryPlugin)
-//    if (!hasApp && !hasLib) {
-//      throw new IllegalStateException("'android' or 'android-library' plugin required.")
-//    }
+    def hasApp = project.plugins.findPlugin("com.android.application")
+
+    def hasLib = project.plugins.findPlugin("com.android.library")
+    if (!hasApp && !hasLib) {
+      throw new IllegalStateException("'android' or 'android-library' plugin required.")
+    }
 
     final def log = project.logger
     final def variants
-//    if (hasApp) {
-//      variants = project.android.applicationVariants
-//    } else {
-//      variants = project.android.libraryVariants
-//    }
-    variants = project.android.applicationVariants
+    if (hasApp) {
+      variants = project.android.applicationVariants
+    } else {
+      variants = project.android.libraryVariants
+    }
 
     project.dependencies {
-      debugImplementation 'com.github.fangzhzh.hugo:hugo-runtime:1.2.5'
+      debugImplementation "com.github.fangzhzh.hugo:hugo-runtime:${VERSION_NAME}"
       // TODO this should come transitively
       debugImplementation 'org.aspectj:aspectjrt:1.8.6'
-      implementation 'com.github.fangzhzh.hugo:hugo-annotations:1.2.5'
+      implementation "com.github.fangzhzh.hugo:hugo-annotations:${VERSION_NAME}"
     }
 
     project.extensions.create('hugo', HugoExtension)
