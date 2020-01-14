@@ -6,7 +6,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 
 dependencies {
-  implementation 'org.aspectj:aspectjrt:1.8.6'
+  implementation 'org.aspectj:aspectjrt:1.9.1'
   implementation project(':hugo-annotations')
 
   testImplementation 'junit:junit:4.12'

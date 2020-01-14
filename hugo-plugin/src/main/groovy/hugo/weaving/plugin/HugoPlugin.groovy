@@ -28,7 +28,7 @@ class HugoPlugin implements Plugin<Project> {
     project.dependencies {
       debugImplementation "com.github.fangzhzh.hugo:hugo-runtime:${VERSION_NAME}"
       // TODO this should come transitively
-      debugImplementation 'org.aspectj:aspectjrt:1.8.6'
+      debugImplementation 'org.aspectj:aspectjrt:1.9.1'
       implementation "com.github.fangzhzh.hugo:hugo-annotations:${VERSION_NAME}"
     }
 
