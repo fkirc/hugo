@@ -9,7 +9,7 @@ buildscript {
     mavenLocal()
   }
   dependencies {
-    classpath "com.github.fangzhzh.hugo:hugo-plugin:${VERSION_NAME}"
+    classpath "com.github.fangzhzh.hugo:hugo-plugin:1.2.5"
   }
 }
 
